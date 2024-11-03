@@ -1,22 +1,22 @@
 #ifndef GERENCIADORDEUSUARIO_H
 #define GERENCIADORDEUSUARIO_H
+#include <vector>
 #include "Usuario.h"
+using namespace std;
 
 class GerenciadorDeUsuario
 {
 private:
-    int maximoUsuarios = 100;
-    Usuario **usuarios;
-    int quantidade = 0;
+    vector<Usuario*>* usuarios;
 
 public:
-    GerenciadorDeUsuario(int maximo);
-    ~GerenciadorDeUsuario();
+    GerenciadorDeUsuario();
+    GerenciadorDeUsuario(vector<Usuario*>* usuarios);
+    virtual ~GerenciadorDeUsuario();
 
-    bool adicionar(Usuario *u);
+    void adicionar(Usuario *u);
     Usuario *getUsuario(int id);
-    Usuario **getUsuarios();
-    int getQuantidade();
+    vector<Usuario*>* getUsuarios();
 };
 
 #endif
