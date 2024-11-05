@@ -100,11 +100,13 @@ vector<Usuario *> *PersistenciaDeUsuario::carregar(string arquivo)
         }
     }
 
-    // se nao tiver chegado no final do arquivo ou houver algum erro de leitura
+    //se nao tiver chegado no final do arquivo ou houver algum erro de leitura
     if (input.fail() || !input.eof()) {
         throw new logic_error("erro na leitura");
     }
     input.close();
+
+    return carregados;
 }
 
 void PersistenciaDeUsuario::salvar(string arquivo, vector<Usuario*>* v){

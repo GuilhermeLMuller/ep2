@@ -25,7 +25,8 @@ int Usuario::getId()
     return id;
 }
 
-bool Usuario::entrar(Data* d) {}
-bool Usuario::sair(Data* d) {}
-bool Usuario::registrarEntradaManual(Data* d) {}
-bool Usuario::registrarSaidaManual(Data* d) {}
+//linhas de codigo apagadas por guilherme:
+//bool Usuario::entrar(Data* d){}
+//bool Usuario::sair(Data* d){}
+//bool Usuario::registrarEntradaManual(Data* d) {}
+//bool Usuario::registrarSaidaManual(Data* d) {}

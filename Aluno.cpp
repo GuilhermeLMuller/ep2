@@ -10,6 +10,11 @@ Aluno::~Aluno()
 {
 }
 
+//codigo escrito por guilherme:
+int Aluno::hora_fim = 23;
+int Aluno::minuto_fim = 0;
+//fim do codigo escrito por guilherme
+
 void Aluno::setHorarioFim(int hora, int minuto)
 {
     if (hora <= 6 || hora > 23 || minuto < 0 || minuto > 59)
@@ -58,3 +63,5 @@ int Aluno::getMinutoFim()
 {
     return minuto_fim;
 }
+
+
