@@ -42,6 +42,25 @@ bool entrarSair(int opcao, int id, int catraca, Data *tempo, Catraca *zero, Catr
     return resultado;
 }
 
+Data *perguntarData()
+{
+    int hora, minuto, segundo, dia, mes, ano;
+    cout << "Hora: ";
+    cin >> hora;
+    cout << "Minuto: ";
+    cin >> minuto;
+    cout << "Segundo: ";
+    cin >> segundo;
+    cout << "Dia: ";
+    cin >> dia;
+    cout << "Mes: ";
+    cin >> mes;
+    cout << "Ano: ";
+    cin >> ano;
+    Data* data = new Data(hora, minuto, segundo, dia, mes, ano);
+    return data;
+}
+
 void menu()
 {
     PersistenciaDeUsuario *persistencia = new PersistenciaDeUsuario();
@@ -85,20 +104,8 @@ void menu()
             cin >> catraca;
             cout << "Id: ";
             cin >> id;
-            cout << "Hora: ";
-            cin >> hora;
-            cout << "Minuto: ";
-            cin >> minuto;
-            cout << "Segundo: ";
-            cin >> segundo;
-            cout << "Dia: ";
-            cin >> dia;
-            cout << "Mes: ";
-            cin >> mes;
-            cout << "Ano: ";
-            cin >> ano;
 
-            Data *tempo = new Data(hora, minuto, segundo, dia, mes, ano);
+            Data *tempo = perguntarData();
 
             if (opcao == 1)
             {
@@ -136,20 +143,8 @@ void menu()
             cin >> escolha;
             cout << "Id: ";
             cin >> id;
-            cout << "Hora: ";
-            cin >> hora;
-            cout << "Minuto: ";
-            cin >> minuto;
-            cout << "Segundo: ";
-            cin >> segundo;
-            cout << "Dia: ";
-            cin >> dia;
-            cout << "Mes: ";
-            cin >> mes;
-            cout << "Ano: ";
-            cin >> ano;
 
-            Data *tempo = new Data(hora, minuto, segundo, dia, mes, ano);
+            Data *tempo = perguntarData();
             Usuario *individuo = gerenciador->getUsuario(id);
             if (escolha == 'e')
             {
@@ -196,6 +191,22 @@ void menu()
                 cout << "Usuario cadastrado com sucesso" << endl
                      << endl;
             }
+
+            if (tipo == 'v')
+            {
+                cout << "Id: ";
+                cin >> id;
+                cout << "Nome: ";
+                cin >> nome;
+                cout << "Data de inicio" << endl;
+                Data *dataInicio = perguntarData();
+
+                cout << "Data de fim" << endl;
+                Data* dataFim = perguntarData();
+
+                Visitante* pessoa = new Visitante(id, nome, dataInicio, dataFim);
+            }
+            cout << endl;
         }
         if (opcao == 5)
         {
