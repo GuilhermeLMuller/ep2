@@ -1,6 +1,5 @@
 #include "Catraca.h"
 #include <iostream>
-#include <vector>
 
 Catraca::Catraca(GerenciadorDeUsuario *g)
 {

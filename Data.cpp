@@ -12,10 +12,10 @@ Data::Data(int hora, int minuto, int segundo, int dia, int mes, int ano)
     this->dia = dia;
     this->mes = mes;
     this->ano = ano;
-    //if (hora < 0 || hora > 23 || minuto < 0 || minuto > 59 || segundo < 0 || segundo > 59 || dia < 1 || dia > 31 || mes < 1 || mes > 12)
-    //{
-      //  throw new logic_error("Erro aqui");
-    //}
+    if (hora < 0 || hora > 23 || minuto < 0 || minuto > 59 || segundo < 0 || segundo > 59 || dia < 1 || dia > 31 || mes < 1 || mes > 12)
+    {
+        throw new logic_error("Erro aqui");
+    }
 }
 
 Data::~Data()

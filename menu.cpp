@@ -4,12 +4,6 @@
 #include "GerenciadorDeUsuario.h"
 #include "Registro.h"
 #include "Usuario.h"
-#include "PersistenciaDeUsuario.h"
-#include "Aluno.h"
-#include "Visitante.h"
-#include "Funcionario.h"
-#include "Entrada.h"
-#include "Saida.h"
 
 using namespace std;
 
@@ -42,46 +36,14 @@ bool entrarSair(int opcao, int id, int catraca, Data *tempo, Catraca *zero, Catr
     return resultado;
 }
 
-Data *perguntarData()
-{
-    int hora, minuto, segundo, dia, mes, ano;
-    cout << "Hora: ";
-    cin >> hora;
-    cout << "Minuto: ";
-    cin >> minuto;
-    cout << "Segundo: ";
-    cin >> segundo;
-    cout << "Dia: ";
-    cin >> dia;
-    cout << "Mes: ";
-    cin >> mes;
-    cout << "Ano: ";
-    cin >> ano;
-    Data* data = new Data(hora, minuto, segundo, dia, mes, ano);
-    return data;
-}
-
+// funcao para entrada ou saida de usuarios (opcoes 1 e 2)
 void menu()
 {
-    PersistenciaDeUsuario *persistencia = new PersistenciaDeUsuario();
-    GerenciadorDeUsuario *gerenciador;
+    GerenciadorDeUsuario *gerenciador = new GerenciadorDeUsuario(10);
     Catraca *zero = new Catraca(gerenciador);
     Catraca *um = new Catraca(gerenciador);
-    int opcao = -1, id, hora, minuto, segundo, dia, mes, ano, catraca, horaFim, minutoFim;
-    char opcaoInicio, opcaoFim;
-
-    cout << "Deseja carregar usuarios (s/n): ";
-    cin >> opcaoInicio;
-
-    if (opcaoInicio == 's')
-    {
-        string txt;
-        cout << "Arquivo: ";
-        cin >> txt;
-        gerenciador = new GerenciadorDeUsuario(persistencia->carregar(txt));
-    }
-    else
-        gerenciador = new GerenciadorDeUsuario();
+    int opcao = -1;
+    int id, hora, minuto, segundo, dia, mes, ano, catraca;
 
     while (opcao != 0)
     {
@@ -91,12 +53,10 @@ void menu()
         cout << "3) Registro manual" << endl;
         cout << "4) Cadastro de usuario" << endl;
         cout << "5) Relatorio" << endl;
-        cout << "6) Configuracao" << endl;
         cout << "0) Sair" << endl;
         cout << "Escolha uma opcao: ";
         cin >> opcao;
-        if (opcao != 0)
-            cout << endl; // pular linha bonitinho :)
+        if(opcao != 0) cout << endl; // pular linha bonitinho :)
 
         if (opcao == 1 || opcao == 2)
         {
@@ -104,33 +64,41 @@ void menu()
             cin >> catraca;
             cout << "Id: ";
             cin >> id;
+            cout << "Hora: ";
+            cin >> hora;
+            cout << "Minuto: ";
+            cin >> minuto;
+            cout << "Segundo: ";
+            cin >> segundo;
+            cout << "Dia: ";
+            cin >> dia;
+            cout << "Mes: ";
+            cin >> mes;
+            cout << "Ano: ";
+            cin >> ano;
 
-            Data *tempo = perguntarData();
+            Data *tempo = new Data(hora, minuto, segundo, dia, mes, ano);
 
             if (opcao == 1)
             {
                 if (entrarSair(1, id, catraca, tempo, zero, um))
                 {
-                    cout << "[ENTRADA] Catraca " << catraca << " abriu: id " << id << endl
-                         << endl;
+                    cout << "[ENTRADA] Catraca " << catraca << " abriu: id " << id << endl << endl;
                 }
                 else
                 {
-                    cout << "[ENTRADA] catraca " << catraca << " travada" << endl
-                         << endl;
+                    cout << "[ENTRADA] catraca " << catraca << " travada" << endl << endl;
                 }
             }
             else if (opcao == 2)
             {
                 if (entrarSair(2, id, catraca, tempo, zero, um))
                 {
-                    cout << "[SAIDA] Catraca " << catraca << " abriu: id " << id << endl
-                         << endl;
+                    cout << "[SAIDA] Catraca " << catraca << " abriu: id " << id << endl << endl;
                 }
                 else
                 {
-                    cout << "[SAIDA] catraca " << catraca << " travada" << endl
-                         << endl;
+                    cout << "[SAIDA] catraca " << catraca << " travada" << endl << endl;
                 }
             }
         }
@@ -143,26 +111,34 @@ void menu()
             cin >> escolha;
             cout << "Id: ";
             cin >> id;
+            cout << "Hora: ";
+            cin >> hora;
+            cout << "Minuto: ";
+            cin >> minuto;
+            cout << "Segundo: ";
+            cin >> segundo;
+            cout << "Dia: ";
+            cin >> dia;
+            cout << "Mes: ";
+            cin >> mes;
+            cout << "Ano: ";
+            cin >> ano;
 
-            Data *tempo = perguntarData();
-            Usuario *individuo = gerenciador->getUsuario(id);
+            Data *tempo = new Data(hora, minuto, segundo, dia, mes, ano);
+            Usuario *visitante = gerenciador->getUsuario(id);
             if (escolha == 'e')
             {
-                if (individuo->registrarEntradaManual(tempo))
-                    cout << "Entrada manual registrada: id " << id << endl
-                         << endl;
+                if (visitante->registrarEntradaManual(tempo))
+                    cout << "Entrada manual registrada: id " << id << endl << endl;
                 else
-                    cout << "Erro ao registrar entrada manual" << endl
-                         << endl;
+                    cout << "Erro ao registrar entrada manual" << endl << endl;
             }
             else if (escolha == 's')
             {
-                if (individuo->registrarSaidaManual(tempo))
-                    cout << "Saida manual registrada: id " << id << endl
-                         << endl;
+                if (visitante->registrarSaidaManual(tempo))
+                    cout << "Saida manual registrada: id " << id << endl << endl;
                 else
-                    cout << "Erro ao registrar saida manual" << endl
-                         << endl;
+                    cout << "Erro ao registrar saida manual" << endl << endl;
             }
         }
 
@@ -170,44 +146,23 @@ void menu()
         {
             int id;
             string nome;
-            char tipo;
-            cout << "Tipo (v, a ou f): ";
-            cin >> tipo;
+            cout << "Id: ";
+            cin >> id;
 
-            if (tipo == 'a' || tipo == 'f')
+            cout << "Nome: ";
+            cin >> nome;
+
+            Usuario *pessoa = new Usuario(id, nome, 10);
+            if (gerenciador->adicionar(pessoa))
             {
-                cout << "Id: ";
-                cin >> id;
-
-                cout << "Nome: ";
-                cin >> nome;
-                Usuario *pessoa;
-
-                if (tipo == 'a')
-                    Aluno *pessoa = new Aluno(id, nome);
-                else
-                    Funcionario *pessoa = new Funcionario(id, nome);
-                gerenciador->adicionar(pessoa);
-                cout << "Usuario cadastrado com sucesso" << endl
-                     << endl;
+                cout << "Usuario cadastrado com sucesso" << endl << endl;
             }
-
-            if (tipo == 'v')
+            else
             {
-                cout << "Id: ";
-                cin >> id;
-                cout << "Nome: ";
-                cin >> nome;
-                cout << "Data de inicio" << endl;
-                Data *dataInicio = perguntarData();
-
-                cout << "Data de fim" << endl;
-                Data* dataFim = perguntarData();
-
-                Visitante* pessoa = new Visitante(id, nome, dataInicio, dataFim);
+                cout << "Erro ao cadastrar o usuario" << endl << endl;
             }
-            cout << endl;
         }
+
         if (opcao == 5)
         {
             int mes, ano;
@@ -218,43 +173,11 @@ void menu()
 
             cout << "Relatorio de horas trabalhadas" << endl;
 
-            for (int i = 0; i < gerenciador->getUsuarios()->size(); i++)
+            for (int i = 0; i < gerenciador->getQuantidade(); i++)
             {
-                if (dynamic_cast<Funcionario *>(gerenciador->getUsuarios()->at(i)))
-                {
-                    Funcionario *trabalhador = dynamic_cast<Funcionario *>(gerenciador->getUsuarios()->at(i));
-                    cout << trabalhador->getNome() << ": " << trabalhador->getHorasTrabalhadas(mes, ano) << endl;
-                }
+                cout << gerenciador->getUsuarios()[i]->getNome() << ": " << gerenciador->getUsuarios()[i]->getHorasTrabalhadas(mes, ano) << endl;
             }
             cout << endl;
         }
-
-        if (opcao == 6)
-        {
-            cout << "Horario de fim da janela dos Alunos" << endl
-                 << "Hora: ";
-            cin >> horaFim;
-            cout << "Minuto: ";
-            cin >> minutoFim;
-            for (int i = 0; i < gerenciador->getUsuarios()->size(); i++)
-            {
-                if (dynamic_cast<Aluno *>(gerenciador->getUsuarios()->at(i)))
-                {
-                    Aluno *estudante = dynamic_cast<Aluno *>(gerenciador->getUsuarios()->at(i));
-                    estudante->setHorarioFim(horaFim, minutoFim);
-                }
-            }
-        }
-    }
-
-    cout << "Deseja salvar usuarios (s/n): ";
-    cin >> opcaoFim;
-
-    if (opcaoFim == 's')
-    {
-        string arquivoFim;
-        cout << "Arquivo: ";
-        cin >> arquivoFim;
-        persistencia->salvar(arquivoFim, gerenciador->getUsuarios());
     }
 }

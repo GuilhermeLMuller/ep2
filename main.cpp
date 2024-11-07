@@ -1,8 +1,7 @@
 void menu();
-void testando();
 
 int main()
 {
-    testando();
+    menu();
     return 0;
 }

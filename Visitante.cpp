@@ -9,10 +9,10 @@ Visitante::Visitante(int id, std::string nome, Data *inicio, Data *fim) : Usuari
     this->inicio = inicio;
     this->fim = fim;
 
-    //if (inicio == nullptr || fim == nullptr || fim->diferenca(inicio) > 0)
-    //{
-      //  throw new std::logic_error("Erro aqui");
-    //}
+    if (inicio == nullptr || fim == nullptr || fim->diferenca(inicio) > 0)
+    {
+        throw new std::logic_error("Erro aqui");
+    }
 }
 
 Visitante::~Visitante()
